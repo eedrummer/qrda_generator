@@ -110,6 +110,7 @@
   <component>
     <structuredBody>
       <%== render :partial => 'measures', :locals => {:measures => measures} %>
+      <%== render :partial => 'reporting_parameters', :locals => {:start_date => start_date, :end_date => end_date} %>
     </structuredBody>
   </component>
 </ClinicalDocument>
