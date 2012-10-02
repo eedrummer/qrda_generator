@@ -19,33 +19,9 @@
   <code code="55182-0" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Quality Measure Report"/>
   <title>QRDA Incidence Report</title>
   <!-- This is the document creation time -->
-  <effectiveTime value="20111231"/>
+  <effectiveTime value="<%= Time.now.utc.to_formatted_s(:number) %>"/>
   <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
   <languageCode code="en-US"/>
   <!-- reported patient -->
-  <recordTarget>
-    <patientRole>
-      <!-- This is the patient's Medical HIC number -->
-      <id extension="111223333A" root="2.16.840.1.113883.4.572"/> 
-      <addr>
-        <streetAddressLine>2222 Home Street</streetAddressLine>
-        <city>Burlington</city>
-        <state>MA</state>
-        <postalCode>02368</postalCode>
-        <country>US</country>
-      </addr>
-      <telecom use="HP" value="tel:(781)555-1212"/>
-      <patient>
-        <name>
-          <given>Eve</given>
-          <family>Everygirl</family>
-        </name>
-        <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1"/>
-        <birthTime value="20020201"/>
-        <religiousAffiliationCode code="1013" codeSystem="2.16.840.1.113883.1.11.19185" codeSystemName="HL7 Religious Affiliation " displayName="Christian (non-Catholic, non-specific)"/>
-        <raceCode code="2106-3" codeSystem="2.16.840.1.114222.4.11.836" displayName="White"/>
-        <ethnicGroupCode code="2186-5" codeSystem="2.16.840.1.114222.4.11.837" displayName="Not Hispanic or Latino"/>
-      </patient>
-    </patientRole>
-  </recordTarget>
+  <%== render :partial => 'record_target', :locals => {:patient => patient} %>
 </ClinicalDocument>
