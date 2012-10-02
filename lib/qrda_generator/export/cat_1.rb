@@ -3,9 +3,9 @@ module QrdaGenerator
     module Cat1
       include HealthDataStandards::Export::TemplateHelper
 
-      def export(patient)
+      def export(patient, measures)
         self.template_format = "cat1"
-        render(:template => 'show', :locals => {:patient => patient})
+        render(:template => 'show', :locals => {:patient => patient, :measures => measures})
       end
 
       extend self
