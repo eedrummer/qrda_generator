@@ -15,12 +15,19 @@ class Cat1Test < MiniTest::Unit::TestCase
     @qrda_xml = QrdaGenerator::Export::Cat1.export(@patient, @measures, @start_date, @end_date)
     @doc = Nokogiri::XML(@qrda_xml)
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-    
   end
 
   def test_cda_header_export
     first_name = @doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:given').text
     assert_equal 'Barry', first_name
+  end
+
+  def test_entries_for_data_criteria
+    QrdaGenerator::Export::ValueSetManager.expects(:codes_for_oid).with("2.16.840.1.113883.3.464.0001.373").returns([{"set" => "RxNorm", "values" => ["89905"]}])
+    data_criteria = @measures[0].all_data_criteria[0]
+    entries = QrdaGenerator::Export::Cat1.entries_for_data_criteria(data_criteria, @patient)
+    assert_equal 1, entries.length
+    assert_equal 'Multivitamin', entries[0].description
   end
 
   def test_measure_section_export
