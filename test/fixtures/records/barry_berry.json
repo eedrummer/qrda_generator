@@ -337,6 +337,7 @@
         },
         "institutionSpecified": true
       },
+      "oid": "2.16.840.1.113883.3.560.1.8",
       "freeTextSig": "Take your vitamins!",
       "codes": {
         "RxNorm": [

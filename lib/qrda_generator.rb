@@ -1,6 +1,5 @@
 require 'health-data-standards'
 require 'hqmf-parser'
-require 'quality-measure-engine'
 
 # FREEDOM!!!!!
 require_relative 'qrda_generator/ext/hds_freedom_patch'
