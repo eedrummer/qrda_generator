@@ -30,6 +30,13 @@ class Cat1Test < MiniTest::Unit::TestCase
     assert_equal 'Multivitamin', entries[0].description
   end
 
+  def test_unique_data_criteria
+    pairs = QrdaGenerator::Export::Cat1.unique_data_criteria(@measures)
+    assert pairs
+    assert pairs.include?({'data_criteria_oid' => "2.16.840.1.113883.3.560.1.8",
+                           'value_set_oid' => "2.16.840.1.113883.3.464.0001.373"})
+  end
+
   def test_measure_section_export
     measure_entries = @doc.xpath('//cda:section[cda:templateId/@root="2.16.840.1.113883.10.20.24.2.3"]/cda:entry')
     assert_equal 3, measure_entries.size
