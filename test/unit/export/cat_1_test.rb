@@ -2,16 +2,12 @@ require 'test_helper'
 
 class Cat1Test < MiniTest::Unit::TestCase
   def setup
-    collection_fixtures('records', '_id')
-    collection_fixtures('measures')
     @patient = Record.first
-    @measures = []
+
     @start_date = Time.now.years_ago(1)
     @end_date = Time.now
 
-    Mongoid.session(:default)['measures'].find.each do |measure|
-      @measures << HQMF::Document.from_json(measure)
-    end
+    @measures = MEASURES
     @qrda_xml = QrdaGenerator::Export::Cat1.export(@patient, @measures, @start_date, @end_date)
     @doc = Nokogiri::XML(@qrda_xml)
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
