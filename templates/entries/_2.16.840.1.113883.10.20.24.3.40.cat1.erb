@@ -1,0 +1,20 @@
+<entry>
+  <!--Laboratory test, result -->
+  <observation classCode="OBS" moodCode="EVN">
+    <!--  Result Observation (consolidation) template  -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.2"/>
+    <!-- Laboratory Test, Result template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.40"/>
+    <id root="<%= entry.id %>"/>
+    <%== code_display(entry, :extra_content => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <text><%= entry.description %></text>
+    <statusCode code="completed"/>
+    <effectiveTime>
+      <low value="<%= entry.start_date %>"/>
+    </effectiveTime>
+    <% ev = entry.values.first
+       if ev.present? && ev.respond_to?(:scalar) -%>
+    <value xsi:type="PQ" value="<%= ev.scalar %>" <% if ev.units -%>unit="<%= ev.units %>"<% end -%>/>   
+    <% end -%>
+  </observation>
+</entry>
