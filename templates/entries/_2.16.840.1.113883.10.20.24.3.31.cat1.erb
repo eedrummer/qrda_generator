@@ -1,0 +1,17 @@
+<entry>
+            <act classCode="ACT" moodCode="RQO">
+              <!-- Plan of Care Activity Act template -->
+              <templateId root="2.16.840.1.113883.10.20.22.4.39"/>
+              <!-- Intervention Order template -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.31"/>
+              <id root="&lt;%= entry.id %&gt;"/>
+              <code code="Z71.3" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD-10" displayName="Dietary counseling and surveillance" sdtc:valueSet="2.16.840.1.113883.3.600.1514"/>
+              <statusCode code="completed"/>
+              <author>
+                <time value="20120401"/>
+                <assignedAuthor>
+                  <id root="&lt;%= entry.id %&gt;"/>
+                </assignedAuthor>
+              </author>
+            </act>
+          </entry>
