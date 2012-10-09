@@ -1,0 +1,20 @@
+<entry>
+  <!--Diagnosis active: diabetes-->
+  <observation classCode="OBS" moodCode="EVN">
+    <!--  Problem observation template -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.4"/>
+    <!--  Diagnosis active template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.11"/>
+    <id root="<%= entry.id %>"/>
+    <code code="282291009" displayName="diagnosis" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+    <text><%= entry.description %></text>
+    <statusCode code="completed"/>
+    <effectiveTime>
+      <!-- Attribute: admission datetime -->
+      <low value="<%= entry.start_date %>"/>
+      <!-- Attribute: discharge datetime -->
+      <high value="<%= entry.end_date %>"/>
+    </effectiveTime>
+    <%== code_display(entry, 'tag_name' => 'value', 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
+  </observation>
+</entry>
