@@ -1,0 +1,14 @@
+<entry>
+  <observation classCode="OBS" moodCode="EVN">
+    <templateId root="2.16.840.1.113883.10.20.24.3.101"/>
+    <id root="<%= entry.id %>"/>
+    <%== code_display(entry, :extra_content => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <statusCode code="completed"/>
+    <effectiveTime <%= value_or_null_flavor(entry.as_point_in_time) %>/>
+    <!-- ?Note: valueSet of PQ "d" and "wk"-->
+    <% ev = entry.values.first
+       if ev.present? && ev.respond_to?(:scalar) -%>
+    <value xsi:type="PQ" value="<%= ev.scalar %>" <% if ev.units -%>unit="<%= ev.units %>"<% end -%>/>   
+    <% end -%>
+  </observation>
+</entry>
