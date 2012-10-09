@@ -1,0 +1,25 @@
+<entry>
+  <observation classCode="OBS" moodCode="EVN">
+    <!-- Functional Status Result Observation (consolidation) template -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.67"/>
+    <!-- Functional Status, Result template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.28"/>
+    <id root="<%= entry.id %>"/>
+    <%== code_display(entry, :extra_content => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <text><%= entry.description %></text>
+    <statusCode code="completed"/>
+
+    <effectiveTime>
+      <!-- Attribute: Start Datetime -->
+      <low value="<%= entry.start_date %>"/>
+      <!-- Attribute: Stop Datetime -->
+      <high value="<%= entry.end_date %>"/>
+    </effectiveTime>
+
+    <!-- Result -->
+    <% ev = entry.values.first
+       if ev.present? && ev.respond_to?(:scalar) -%>
+    <value xsi:type="PQ" value="<%= ev.scalar %>" <% if ev.units -%>unit="<%= ev.units %>"<% end -%>/>   
+    <% end -%>
+  </observation>
+</entry>
