@@ -1,0 +1,19 @@
+<entry>
+  <!--Encounter performed: Inpatient Encounter-->
+  <encounter classCode="ENC" moodCode="EVN">
+    <!--  Encounter activities template -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.49"/>
+    <!-- Encounter performed template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.23"/>
+    <id root="<%= entry.id %>"/>
+    <%== code_display(entry, :extra_content => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <text><%= entry.description %></text>
+    <statusCode code="completed"/>
+    <effectiveTime>
+      <!-- We try to look for the admit/discharge times on the encounter if they are
+           there. If not, we fall back to the typical start/end date. -->
+      <low <%= value_or_null_flavor(entry.admit_time || entry.start_time) %>/>
+      <high <%= value_or_null_flavor(entry.discharge_time || entry.end_time) %>/>
+    </effectiveTime>
+  </encounter>
+</entry>
