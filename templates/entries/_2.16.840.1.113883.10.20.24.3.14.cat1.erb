@@ -10,9 +10,9 @@
     <statusCode code="completed"/>
     <effectiveTime>
       <!-- Attribute: Start Datetime -->
-      <low value="<%= entry.start_date %>"/>
+      <low <%= value_or_null_flavor(entry.start_date) %>/>
       <!-- Attribute: Stop Datetime -->
-      <high value="<%= entry.end_date %>"/>
+      <high <%= value_or_null_flavor(entry.end_date) %>/>
     </effectiveTime>
     <%== code_display(entry, 'tag_name' => 'value', 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
     <!-- Status -->
