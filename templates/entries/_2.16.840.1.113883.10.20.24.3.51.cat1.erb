@@ -6,7 +6,7 @@
     <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
     <statusCode code="active"/>
     <effectiveTime>
-      <low value="<%= entry.start_date %>"/>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
     </effectiveTime>
     <value code="428024001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="clinical trial participant" xsi:type="CD"/>
   </observation>
