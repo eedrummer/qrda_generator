@@ -1,0 +1,20 @@
+<entry>
+  <!-- Physical Exam Finding -->
+  <observation classCode="OBS" moodCode="EVN">
+    <!--  Result observation template -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.2"/>
+    <!-- Physical Exam, Finding template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.57"/>
+    <id root="<%= entry.id %>"/>
+    <code code="404684003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="finding"/>
+
+    <statusCode code="completed"/>
+
+    <effectiveTime>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+      <high <%= value_or_null_flavor(entry.end_time) %>/>
+    </effectiveTime>
+
+    <%== code_display(entry, 'tag_name' => 'value', 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
+  </observation>
+</entry>
