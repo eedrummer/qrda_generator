@@ -1,0 +1,24 @@
+<entry>
+  <procedure classCode="PROC" moodCode="EVN">
+    <!-- Procedure Activity Procedure -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.14"/>
+    <!-- Device Applied -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.7"/>
+    <id root="<%= entry.id %>"/>
+    <code code="360030002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="application of device"/>
+    <text>Device, Applied</text>
+    <statusCode code="completed"/>
+    
+    <effectiveTime>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+    </effectiveTime>
+    
+    <participant typeCode="DEV">
+      <participantRole classCode="MANU">
+        <playingDevice classCode="DEV">
+          <%== code_display(entry, :extra_content => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+        </playingDevice>
+      </participantRole>
+    </participant>
+  </procedure>
+</entry>
