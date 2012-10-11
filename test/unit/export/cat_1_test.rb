@@ -8,6 +8,7 @@ class Cat1Test < MiniTest::Unit::TestCase
     @end_date = Time.now
 
     @measures = MEASURES
+    QrdaGenerator::Export::ValueSetManager.stubs(:codes_for_oid).returns([{"set" => "RxNorm", "values" => ["89905"]}])
     @qrda_xml = QrdaGenerator::Export::Cat1.export(@patient, @measures, @start_date, @end_date)
     @doc = Nokogiri::XML(@qrda_xml)
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
@@ -16,6 +17,12 @@ class Cat1Test < MiniTest::Unit::TestCase
   def test_cda_header_export
     first_name = @doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:given').text
     assert_equal 'Barry', first_name
+  end
+
+  def test_patient_data_section_export
+    med_dispensed = @doc.at_xpath('//cda:supply[cda:templateId/@root="2.16.840.1.113883.10.20.24.3.45"]')
+    assert med_dispensed
+    assert_equal "Multivitamin", med_dispensed.at_xpath('./cda:text').text
   end
 
   def test_entries_for_data_criteria
@@ -29,8 +36,10 @@ class Cat1Test < MiniTest::Unit::TestCase
   def test_unique_data_criteria
     pairs = QrdaGenerator::Export::Cat1.unique_data_criteria(@measures)
     assert pairs
-    assert pairs.include?({'data_criteria_oid' => "2.16.840.1.113883.3.560.1.8",
-                           'value_set_oid' => "2.16.840.1.113883.3.464.0001.373"})
+    assert pairs.any? do |p|
+      p['data_criteria_oid'] == "2.16.840.1.113883.3.560.1.8" &&
+      p['value_set_oid'] == "2.16.840.1.113883.3.464.0001.373"
+    end
   end
 
   def test_measure_section_export

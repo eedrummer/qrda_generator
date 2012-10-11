@@ -17,6 +17,8 @@ module QrdaGenerator
         hqmf_qrda_oid_map.find {|map_tuple| map_tuple['hqmf_oid'] == hqmf_oid }['qrda_oid'] 
       end
 
+      alias :partial_for :qrda_oid_for_hqmf_oid
+
       extend self
     end
   end
