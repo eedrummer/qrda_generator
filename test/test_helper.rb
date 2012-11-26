@@ -4,7 +4,7 @@ require_relative '../lib/qrda_generator'
 
 require 'pry'
 require 'minitest/autorun'
-require 'mocha'
+require 'mocha/setup'
 
 db_host = ENV['TEST_DB_HOST'] || 'localhost'
 
