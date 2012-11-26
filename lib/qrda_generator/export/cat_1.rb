@@ -12,7 +12,7 @@ module QrdaGenerator
 
       # Find all of the entries on a patient that match the given data criteria
       def entries_for_data_criteria(data_criteria, patient)
-        data_criteria_oid = QRDATemplateHelper.template_id_by_definition_and_status(data_criteria.definition, 
+        data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition, 
                                                                                     data_criteria.status,
                                                                                     data_criteria.negation)
         entries = patient.entries_for_oid(data_criteria_oid)
@@ -26,7 +26,7 @@ module QrdaGenerator
       def unique_data_criteria(measures)
         all_data_criteria = measures.map {|measure| measure.all_data_criteria}.flatten
         dc_oids_and_vs_oids = all_data_criteria.map do |data_criteria|
-          data_criteria_oid = QRDATemplateHelper.template_id_by_definition_and_status(data_criteria.definition, 
+          data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition, 
                                                                             data_criteria.status,
                                                                             data_criteria.negation)
           value_set_oid = data_criteria.code_list_id
