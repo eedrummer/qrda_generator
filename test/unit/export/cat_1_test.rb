@@ -8,7 +8,6 @@ class Cat1Test < MiniTest::Unit::TestCase
     @end_date = Time.now
 
     @measures = MEASURES
-    QrdaGenerator::Export::ValueSetManager.stubs(:codes_for_oid).returns([{"set" => "RxNorm", "values" => ["89905"]}])
     @qrda_xml = QrdaGenerator::Export::Cat1.export(@patient, @measures, @start_date, @end_date)
     @doc = Nokogiri::XML(@qrda_xml)
     @doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
@@ -26,7 +25,6 @@ class Cat1Test < MiniTest::Unit::TestCase
   end
 
   def test_entries_for_data_criteria
-    QrdaGenerator::Export::ValueSetManager.expects(:codes_for_oid).with("2.16.840.1.113883.3.464.0001.373").returns([{"set" => "RxNorm", "values" => ["89905"]}])
     data_criteria = @measures[0].all_data_criteria[0]
     entries = QrdaGenerator::Export::Cat1.entries_for_data_criteria(data_criteria, @patient)
     assert_equal 1, entries.length

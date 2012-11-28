@@ -3,6 +3,7 @@ module QrdaGenerator
     module Cat1
       include HealthDataStandards::Export::TemplateHelper
       include HealthDataStandards::Util
+      include HealthDataStandards::SVS
 
       # Hack to override the template_root in Health Data Standards,
       # which will only reference templates in the Health Data Standard
@@ -23,7 +24,11 @@ module QrdaGenerator
                                                                                     data_criteria.status,
                                                                                     data_criteria.negation)
         entries = patient.entries_for_oid(data_criteria_oid)
-        codes = ValueSetManager.codes_for_oid(data_criteria.code_list_id)
+        codes = []
+        vs = ValueSet.by_oid(data_criteria.code_list_id).first
+        if vs
+          codes = vs.code_set_map
+        end
         entries.find_all { |entry| entry.is_in_code_set?(codes) }
       end
 
