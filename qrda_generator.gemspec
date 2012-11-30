@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors = ["Andy Gregorowicz"]
   s.version = '0.1.0'
   
-  s.add_dependency 'health-data-standards', '~>1.6.7'
-  s.add_dependency 'hqmf-parser', '~> 2.7.0'
+  s.add_dependency 'health-data-standards', '~> 2.1.4'
+  s.add_dependency 'hqmf-parser', '~> 1.0.6'
   s.add_dependency 'mongoid', '~> 3.0.6'
   s.add_dependency 'uuid', '~> 2.3.5'
   s.add_dependency 'nokogiri', '~> 1.5.5'
