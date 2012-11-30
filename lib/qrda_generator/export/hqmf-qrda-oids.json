@@ -121,7 +121,7 @@
   },
   {
     "hqmf_name": "Discharge Medication (Health Record Field Flow Attribute)",
-    "hqmf_oid": "NA",
+    "hqmf_oid": "=",
     "qrda_name": "Discharge Medication - Active Medication",
     "qrda_oid": "2.16.840.1.113883.10.20.24.3.105"
   },
@@ -544,5 +544,65 @@
     "hqmf_oid": "2.16.840.1.113883.3.560.1.72",
     "qrda_name": "Transfer To",
     "qrda_oid": "2.16.840.1.113883.10.20.24.3.82"
+  },
+  {
+    "hqmf_name": "Laboratory Test, not Performed",
+    "hqmf_oid": "2.16.840.1.113883.3.560.1.105",
+    "qrda_name": "Laboratory Test Performed",
+    "qrda_oid": "2.16.840.1.113883.10.20.24.3.38"
+  },
+  {
+    "hqmf_name": "Diagnostic Study, not Performed",
+    "hqmf_oid": "2.16.840.1.113883.3.560.1.103",
+    "qrda_name": "Diagnostic Study Performed",
+    "qrda_oid": "2.16.840.1.113883.10.20.24.3.18"
+  },
+  {
+    "hqmf_name": "Procedure, not Performed",
+    "hqmf_oid": "2.16.840.1.113883.3.560.1.106",
+    "qrda_name": "Procedure Performed",
+    "qrda_oid": "2.16.840.1.113883.10.20.24.3.64"
+  },
+  {
+    "hqmf_name": "Medication, not Administered",
+    "hqmf_oid": "2.16.840.1.113883.3.560.1.114",
+    "qrda_name": "Medication Administered",
+    "qrda_oid": "2.16.840.1.113883.10.20.24.3.42"
+  },
+  {
+    "hqmf_name": "Intervention, not Performed",
+    "hqmf_oid": "2.16.840.1.113883.3.560.1.146",
+    "qrda_name": "Intervention Performed",
+    "qrda_oid": "2.16.840.1.113883.10.20.24.3.32"
+  },
+  {
+    "hqmf_name": "Medication, not Active",
+    "hqmf_oid": "2.16.840.1.113883.3.560.1.113",
+    "qrda_name": "Medication Active",
+    "qrda_oid": "2.16.840.1.113883.10.20.24.3.41"
+  },
+  {
+    "hqmf_name": "Medication, Order not done",
+    "hqmf_oid": "2.16.840.1.113883.3.560.1.78",
+    "qrda_name": "Medication Order",
+    "qrda_oid": "2.16.840.1.113883.10.20.24.3.47"
+  },
+  {
+    "hqmf_name": "Device, Applied not done",
+    "hqmf_oid": "2.16.840.1.113883.3.560.1.110",
+    "qrda_name": "Device Applied",
+    "qrda_oid": "2.16.840.1.113883.10.20.24.3.7"
+  },
+  {
+    "hqmf_name": "Procedure, Order not done",
+    "hqmf_oid": "2.16.840.1.113883.3.560.1.162",
+    "qrda_name": "Procedure Order",
+    "qrda_oid": "2.16.840.1.113883.10.20.24.3.63"
+  },
+  {
+    "hqmf_name": "Substance, Administered not done",
+    "hqmf_oid": "2.16.840.1.113883.3.560.1.164",
+    "qrda_name": "Medication Administered",
+    "qrda_oid": "2.16.840.1.113883.10.20.24.3.42"
   }
 ]
