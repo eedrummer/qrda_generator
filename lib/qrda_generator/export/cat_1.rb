@@ -24,10 +24,14 @@ module QrdaGenerator
                                                                                     data_criteria.status,
                                                                                     data_criteria.negation)
         entries = patient.entries_for_oid(data_criteria_oid)
+        puts "#{entries.length} for data criteria #{data_criteria_oid}"
         codes = []
         vs = ValueSet.by_oid(data_criteria.code_list_id).first
         if vs
           codes = vs.code_set_map
+          puts codes.inspect
+        else
+          puts "No codes for #{data_criteria.code_list_id}"
         end
         entries.find_all { |entry| entry.is_in_code_set?(codes) }
       end
@@ -39,7 +43,7 @@ module QrdaGenerator
         all_data_criteria = measures.map {|measure| measure.all_data_criteria}.flatten
         dc_oids_and_vs_oids = all_data_criteria.map do |data_criteria|
           data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition, 
-                                                                            data_criteria.status,
+                                                                            (data_criteria.status || ""),
                                                                             data_criteria.negation)
           value_set_oid = data_criteria.code_list_id
           {'data_criteria_oid' => data_criteria_oid, 'value_set_oid' => value_set_oid, 'data_criteria' => data_criteria}
