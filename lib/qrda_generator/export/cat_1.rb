@@ -5,15 +5,9 @@ module QrdaGenerator
       include HealthDataStandards::Util
       include HealthDataStandards::SVS
 
-      # Hack to override the template_root in Health Data Standards,
-      # which will only reference templates in the Health Data Standard
-      # gem
-      def template_root
-        File.join(File.dirname(__FILE__), '..', '..', '..', 'templates')
-      end
-
       def export(patient, measures, start_date, end_date)
         self.template_format = "cat1"
+        self.template_directory = File.dirname(__FILE__)
         render(:template => 'show', :locals => {:patient => patient, :measures => measures, 
                                                 :start_date => start_date, :end_date => end_date})
       end
@@ -24,14 +18,12 @@ module QrdaGenerator
                                                                                     data_criteria.status,
                                                                                     data_criteria.negation)
         entries = patient.entries_for_oid(data_criteria_oid)
-        puts "#{entries.length} for data criteria #{data_criteria_oid}"
         codes = []
         vs = ValueSet.by_oid(data_criteria.code_list_id).first
         if vs
           codes = vs.code_set_map
-          puts codes.inspect
         else
-          puts "No codes for #{data_criteria.code_list_id}"
+          #puts "No codes for #{data_criteria.code_list_id}"
         end
         entries.find_all { |entry| entry.is_in_code_set?(codes) }
       end

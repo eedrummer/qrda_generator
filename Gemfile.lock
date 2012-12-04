@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 67f26fdd7ca48622bcbfefb3e446fd2bb680c99a
+  revision: b54b52695d9eb8cc390031d3b63c99df99e8e030
   branch: develop
   specs:
     health-data-standards (2.1.4)
@@ -59,8 +59,8 @@ GEM
       moped (~> 1.1)
       origin (~> 1.0)
       tzinfo (~> 0.3.22)
-    moped (1.3.0)
-    multi_json (1.3.7)
+    moped (1.3.1)
+    multi_json (1.4.0)
     multipart-post (1.1.5)
     nokogiri (1.5.5)
     oauth (0.4.7)
