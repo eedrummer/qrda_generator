@@ -16,5 +16,24 @@
       <high <%= value_or_null_flavor(entry.end_time) %>/>
     </effectiveTime>
     <%== code_display(entry, 'tag_name' => 'value', 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
+
+    <entryRelationship typeCode="REFR">
+      <observation classCode="OBS" moodCode="EVN">
+        <!-- Problem Status (consolidation) template -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.6"/>
+        <!-- Problem Status, Active template -->
+        <templateId root="2.16.840.1.113883.10.20.24.3.94"/>
+        <id root="<%= UUID.generate %>"/>  
+        <code code="33999-4" 
+          codeSystem="2.16.840.1.113883.6.1"
+          codeSystemName="LOINC" 
+          displayName="status"/>
+        <statusCode code="completed"/>
+        <value xsi:type="CD" code="55561003" 
+           displayName="active"
+           codeSystem="2.16.840.1.113883.6.96" 
+           codeSystemName="SNOMED CT"/>
+      </observation>
+    </entryRelationship>
   </observation>
 </entry>
