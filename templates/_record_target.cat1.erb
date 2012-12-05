@@ -1,6 +1,8 @@
   <recordTarget>
     <patientRole>
       <id root="Cypress" extension="<%= patient.id %>"/>
+      <!-- Fake Medicare HIC number -->
+      <id extension="12345" root="2.16.840.1.113883.4.572"/>
       <addr use="HP">
         <streetAddressLine>202 Burlington Rd.</streetAddressLine>
         <city>Bedford</city>
