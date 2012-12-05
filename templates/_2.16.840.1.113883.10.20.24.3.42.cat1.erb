@@ -5,6 +5,10 @@
     <id root="<%= entry.id %>"/>
     <code code="416118004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Administration"/>
     <statusCode code="completed"/>
+    <effectiveTime xsi:type="IVL_TS">
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+      <high <%= value_or_null_flavor(entry.end_time) %>/>
+    </effectiveTime>
     <entryRelationship typeCode="COMP">
       <substanceAdministration classCode="SBADM" moodCode="EVN">
         <!-- Medication Activity (consolidation) template -->
@@ -22,7 +26,7 @@
             <templateId root="2.16.840.1.113883.10.20.22.4.23"/>
             <id root="<%= UUID.generate %>"/>
             <manufacturedMaterial>
-              <%== code_display(entry, :extra_content => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+              <%== code_display(entry, 'preferred_code_sets' => ['RxNorm', 'CVX', 'SNOMED-CT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
             </manufacturedMaterial>
           </manufacturedProduct>
         </consumable>
