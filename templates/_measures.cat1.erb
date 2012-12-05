@@ -29,6 +29,7 @@
                   <td><%= measure.title %></td>
                   <td><%= measure.hqmf_set_id %></td>
                   <td><%= measure.hqmf_version_number %></td>
+                  <td><%= measure.id %></td>
                   <td><%= measure.hqmf_id %></td>
                   <td></td>
                 </tr>
@@ -49,9 +50,9 @@
               <reference typeCode="REFR">
                 <externalDocument classCode="DOC" moodCode="EVN">
                   <!-- SHALL: This is the version specific identifier for eMeasure: QualityMeasureDocument/id it is a GUID-->
-                  <id root="<%= measure.id %>"/>
+                  <id root="<%= measure.hqmf_id %>"/>
                   <!-- SHOULD: This is the NQF Number, root is an NQF OID and for eMeasure Number and extension is the eMeasure's NQF number -->
-                  <id root="2.16.840.1.113883.3.560.1" extension="<%= measure.hqmf_id %>"/>
+                  <id root="2.16.840.1.113883.3.560.1" extension="<%= measure.id %>"/>
                   <!-- SHOULD This is the title of the eMeasure -->
                   <text><%= measure.title %></text>
                   <!-- SHOULD: setId is the eMeasure version neutral id  -->
