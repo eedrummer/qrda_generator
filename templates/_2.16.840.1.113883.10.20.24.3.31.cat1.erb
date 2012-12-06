@@ -13,5 +13,8 @@
         <id root="<%= UUID.generate %>"/>
       </assignedAuthor>
     </author>
+    <effectiveTime>
+      <low <%= value_or_null_flavor(entry.start_time) %>/>
+    </effectiveTime>
   </act>
 </entry>
