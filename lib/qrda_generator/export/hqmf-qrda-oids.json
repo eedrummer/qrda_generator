@@ -616,5 +616,11 @@
     "hqmf_oid": "2.16.840.1.113883.3.560.1.121",
     "qrda_name": "Risk Category Assessment",
     "qrda_oid": "2.16.840.1.113883.10.20.24.3.69"
+  },
+  {
+    "hqmf_name": "Diagnostic Study, Result not done",
+    "hqmf_oid": "2.16.840.1.113883.3.560.1.111",
+    "qrda_name": "Diagnostic Study Result",
+    "qrda_oid": "2.16.840.1.113883.10.20.24.3.20"
   }
 ]
