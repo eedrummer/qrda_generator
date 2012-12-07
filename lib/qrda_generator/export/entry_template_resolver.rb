@@ -15,6 +15,9 @@ module QrdaGenerator
 
       def qrda_oid_for_hqmf_oid(hqmf_oid)
         oid_tuple = hqmf_qrda_oid_map.find {|map_tuple| map_tuple['hqmf_oid'] == hqmf_oid }
+        if oid_tuple.nil?
+          puts "no qrda oid for #{hqmf_oid}"
+        end
         oid_tuple['qrda_oid']
       end
 
