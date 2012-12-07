@@ -44,18 +44,34 @@ module QrdaGenerator
       end
 
       def render_data_criteria(dc_oid, vs_oid, entries)
-        entries.map do |entry|
-          render(:partial => EntryTemplateResolver.partial_for(dc_oid), :locals => {:entry => entry,
-                                                                                    :value_set_oid => vs_oid})
-        end.join("\n")
+        html_array = entries.map do |entry|
+          if dc_oid == '2.16.840.1.113883.3.560.1.1001'
+            # This is a special case. This HQMF OID maps to more than one QRDA OID.
+            # So we need to try to figure out what template we should use based on the
+            # content of the entry
+            if vs_oid == '2.16.840.1.113883.3.526.3.1279'
+              # Patient Characteristic Observation Assertion template for
+              # Patient Characteristic: ECOG Performance Status-Poor
+              render(:partial => '2.16.840.1.113883.10.20.24.3.103', :locals => {:entry => entry,
+                                                                                 :value_set_oid => vs_oid})
+            else
+              
+            end
+          else
+            render(:partial => EntryTemplateResolver.partial_for(dc_oid), :locals => {:entry => entry,
+                                                                                      :value_set_oid => vs_oid})
+          end
+        end
+        html_array.join("\n")
       end
 
       def render_patient_data(patient, measures)
         udcs = unique_data_criteria(measures)
-        udcs.map do |udc|
+        data_criteria_html = udcs.map do |udc|
           entries = entries_for_data_criteria(udc['data_criteria'], patient)
           render_data_criteria(udc['data_criteria_oid'], udc['value_set_oid'], entries)          
-        end.join("\n")
+        end
+        data_criteria_html.compact.join("\n")
       end
 
       extend self
