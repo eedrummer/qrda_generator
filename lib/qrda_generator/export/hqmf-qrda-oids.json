@@ -604,5 +604,17 @@
     "hqmf_oid": "2.16.840.1.113883.3.560.1.164",
     "qrda_name": "Medication Administered",
     "qrda_oid": "2.16.840.1.113883.10.20.24.3.42"
+  },
+  {
+    "hqmf_name": "Communication: From Provider to Provider not done",
+    "hqmf_oid": "2.16.840.1.113883.3.560.1.129",
+    "qrda_name": "Communication from Provider to Provider",
+    "qrda_oid": "2.16.840.1.113883.10.20.24.3.4"
+  },
+  {
+    "hqmf_name": "Risk Category Assessment not done",
+    "hqmf_oid": "2.16.840.1.113883.3.560.1.121",
+    "qrda_name": "Risk Category Assessment",
+    "qrda_oid": "2.16.840.1.113883.10.20.24.3.69"
   }
 ]
