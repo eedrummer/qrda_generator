@@ -4,14 +4,15 @@
     <templateId root="2.16.840.1.113883.10.20.24.3.104"/>
     <id root="<%= entry.id %>"/>
     <code code="ASSERTION" 
-          codeSystem=" 2.16.840.1.113883.5.4"
+          codeSystem="2.16.840.1.113883.5.4"
           codeSystemName="ActCode"
           displayName="Assertion"/>  
     <statusCode code="completed"/>
     <effectiveTime>
       <low value="<%= entry.start_time %>"/>
     </effectiveTime>
-    <value code="102460003" 
+    <value xsi:type="CD"
+           code="102460003"
            codeSystem="2.16.840.1.113883.6.96"
            codeSystemName="SNOMED CT"
            displayName="Decreased tolerance"/>
