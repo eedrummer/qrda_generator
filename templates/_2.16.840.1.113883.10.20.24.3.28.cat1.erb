@@ -5,7 +5,7 @@
     <!-- Functional Status, Result template -->
     <templateId root="2.16.840.1.113883.10.20.24.3.28"/>
     <id root="<%= entry.id %>"/>
-    <%== code_display(entry, :extra_content => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <%== code_display(entry, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
     <text><%= entry.description %></text>
     <statusCode code="completed"/>
 
@@ -16,8 +16,20 @@
 
     <!-- Result -->
     <% ev = entry.values.first
-       if ev.present? && ev.respond_to?(:scalar) -%>
-    <value xsi:type="PQ" value="<%= ev.scalar %>" <% if ev.units -%>unit="<%= ev.units %>"<% end -%>/>   
+       if ev.present?
+         if ev.respond_to?(:codes) -%>
+    <%== code_display(ev, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM'], 'tag_name' => 'value', 'extra_content' => "xsi:type=\"CD\"") %>
+    <%   elsif ev.respond_to?(:scalar) -%>
+    <%     if is_num?(ev.scalar) -%>
+    <value xsi:type="PQ" value="<%= ev.scalar %>" <% if ev.units -%>unit="<%= ev.units %>"<% end -%>/>
+    <%     elsif is_bool?(ev.scalar)%>
+    <value xsi:type="BL" value="<%= ev.scalar %>" />
+    <%     else -%>
+    <value xsi:type="ST" ><%= ev.scalar %></value> 
+    <%     end 
+         end
+       else -%>
+    <value xsi:type="CD" nullFlavor="UNK"/>
     <% end -%>
   </observation>
 </entry>
