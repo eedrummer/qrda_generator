@@ -18,6 +18,10 @@ module QrdaGenerator
                                                                                     data_criteria.status || '',
                                                                                     data_criteria.negation)
         entries = patient.entries_for_oid(data_criteria_oid)
+
+        if data_criteria.negation
+          puts "Negation required in #{EntryTemplateResolver.partial_for(data_criteria_oid)}"
+        end
         codes = []
         vs = ValueSet.by_oid(data_criteria.code_list_id).first
         if vs
@@ -25,7 +29,20 @@ module QrdaGenerator
         else
           #puts "No codes for #{data_criteria.code_list_id}"
         end
-        entries.find_all { |entry| entry.is_in_code_set?(codes) }
+        filtered_entries = entries.find_all do |entry|
+          # This special case is for when the code list is a reason
+          if data_criteria.code_list_id =~ /2\.16\.840\.1\.113883\.3\.526\.3\.100[7-9]/
+            entry.negation_reason.present? && codes.first['values'].include?(entry.negation_reason['code'])
+          else
+            # The !! hack makes sure that negation_ind is a boolean
+            entry.is_in_code_set?(codes) && !!entry.negation_ind == data_criteria.negation
+          end
+        end
+        if filtered_entries.empty?
+          puts "No entries for #{data_criteria.title}"
+        end
+
+        filtered_entries
       end
 
       # Given a set of measures, find the data criteria/value set pairs that are unique across all of them
@@ -72,6 +89,14 @@ module QrdaGenerator
           render_data_criteria(udc['data_criteria_oid'], udc['value_set_oid'], entries)          
         end
         data_criteria_html.compact.join("\n")
+      end
+
+      def negation_indicator(entry)
+        if entry.negation_ind
+          'negationInd="true"'
+        else
+          ''
+        end
       end
 
       extend self
