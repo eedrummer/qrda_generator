@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'mongoid', '~> 3.0.6'
   s.add_dependency 'uuid', '~> 2.3.5'
   s.add_dependency 'nokogiri', '~> 1.5.5'
+  s.add_dependency 'log4r', '~> 1.1.10'
 
   s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/*.erb') +
             ["Gemfile", "Rakefile"]

@@ -30,7 +30,7 @@ module QrdaGenerator
           if vs
             codes = vs.code_set_map
           else
-            #puts "No codes for #{data_criteria.code_list_id}"
+            QrdaGenerator.logger.warn("No codes for #{data_criteria.code_list_id}")
           end
           filtered_entries = entries.find_all do |entry|
             # This special case is for when the code list is a reason
@@ -43,7 +43,7 @@ module QrdaGenerator
           end
         end
         if filtered_entries.empty?
-          puts "No entries for #{data_criteria.title}"
+          QrdaGenerator.logger.debug("No entries for #{data_criteria.title}")
         end
 
         filtered_entries

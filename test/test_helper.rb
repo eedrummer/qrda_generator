@@ -1,5 +1,4 @@
 require_relative './simplecov'
-
 require_relative '../lib/qrda_generator'
 
 require 'minitest/autorun'
@@ -10,6 +9,7 @@ Mongoid.configure do |config|
   config.sessions = { default: { hosts: [ "#{db_host}:27017" ], database: 'qrda-test' }}
 end
 
+QrdaGenerator.logger.outputters = Log4r::FileOutputter.new('QRDA Generator', filename: 'test.log', trunc: true)
   
 def collection_fixtures(collection, *id_attributes)
   Mongoid.session(:default)[collection].drop
