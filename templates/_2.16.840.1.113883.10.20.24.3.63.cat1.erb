@@ -5,7 +5,7 @@
     <!-- QRDA Procedure, Order TemplateId --> 
     <templateId root="2.16.840.1.113883.10.20.24.3.63"/> 
     <id root="<%= entry.id %>"/>
-    <%== code_display(entry, :extra_content => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <%== code_display(entry, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-PCS', 'ICD-10-PCS'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
     <text><%= entry.description %></text>
     <statusCode code="new"/>
     <!-- Attribute: method--> 
@@ -18,5 +18,6 @@
         <id nullFlavor="NA"/>
       </assignedAuthor>
     </author>
+    <%== render(:partial => 'reason', :locals => {:entry => entry}) %>
   </procedure>
 </entry>

@@ -18,5 +18,6 @@
     <% else -%>
     <value nullFlavor="UNK"/>
     <% end -%>
+    <%== render(:partial => 'reason', :locals => {:entry => entry}) %>
   </observation>
 </entry>
