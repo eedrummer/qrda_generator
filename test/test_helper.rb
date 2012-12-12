@@ -1,4 +1,4 @@
-require "simplecov"
+require_relative './simplecov'
 
 require_relative '../lib/qrda_generator'
 
