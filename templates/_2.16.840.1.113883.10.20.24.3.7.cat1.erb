@@ -16,9 +16,10 @@
     <participant typeCode="DEV">
       <participantRole classCode="MANU">
         <playingDevice classCode="DEV">
-          <%== code_display(entry, :extra_content => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+          <%== code_display(entry, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT', 'ICD-9-PCS', 'ICD-10-PCS', 'CPT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
         </playingDevice>
       </participantRole>
     </participant>
+    <%== render(:partial => 'reason', :locals => {:entry => entry}) %>
   </procedure>
 </entry>
