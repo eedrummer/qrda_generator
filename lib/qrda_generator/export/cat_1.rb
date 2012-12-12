@@ -19,9 +19,6 @@ module QrdaGenerator
                                                                                     data_criteria.negation)
         entries = patient.entries_for_oid(data_criteria_oid)
 
-        if data_criteria.negation
-          puts "Negation required in #{EntryTemplateResolver.partial_for(data_criteria_oid)}"
-        end
         codes = []
         vs = ValueSet.by_oid(data_criteria.code_list_id).first
         if vs
@@ -29,13 +26,18 @@ module QrdaGenerator
         else
           #puts "No codes for #{data_criteria.code_list_id}"
         end
-        filtered_entries = entries.find_all do |entry|
-          # This special case is for when the code list is a reason
-          if data_criteria.code_list_id =~ /2\.16\.840\.1\.113883\.3\.526\.3\.100[7-9]/
-            entry.negation_reason.present? && codes.first['values'].include?(entry.negation_reason['code'])
-          else
-            # The !! hack makes sure that negation_ind is a boolean
-            entry.is_in_code_set?(codes) && !!entry.negation_ind == data_criteria.negation
+        filtered_entries = []
+        if data_criteria_oid == '2.16.840.1.113883.3.560.1.401'
+          filtered_entries = handle_clinical_trial_participant(patient)
+        else
+          filtered_entries = entries.find_all do |entry|
+            # This special case is for when the code list is a reason
+            if data_criteria.code_list_id =~ /2\.16\.840\.1\.113883\.3\.526\.3\.100[7-9]/
+              entry.negation_reason.present? && codes.first['values'].include?(entry.negation_reason['code'])
+            else
+              # The !! hack makes sure that negation_ind is a boolean
+              entry.is_in_code_set?(codes) && !!entry.negation_ind == data_criteria.negation
+            end
           end
         end
         if filtered_entries.empty?
@@ -96,6 +98,14 @@ module QrdaGenerator
           'negationInd="true"'
         else
           ''
+        end
+      end
+
+      def handle_clinical_trial_participant(patient)
+        if patient.clinical_trial_participant
+          [{dummy_entry: true}]
+        else
+          []
         end
       end
 
