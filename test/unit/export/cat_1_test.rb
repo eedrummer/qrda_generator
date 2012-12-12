@@ -40,6 +40,15 @@ class Cat1Test < MiniTest::Unit::TestCase
     end
   end
 
+  def test_handling_expired_patients
+    data_criteria = OpenStruct.new(definition: "patient_characteristic_expired", status: "", negation: false)
+    deathdate = Time.now.to_i
+    patient = OpenStruct.new(expired: true, deathdate: deathdate)
+    entries = QrdaGenerator::Export::Cat1.entries_for_data_criteria(data_criteria, patient)
+    assert_equal 1, entries.length
+    assert_equal deathdate, entries.first.start_date
+  end
+
   def test_measure_section_export
     measure_entries = @doc.xpath('//cda:section[cda:templateId/@root="2.16.840.1.113883.10.20.24.2.3"]/cda:entry')
     assert_equal 3, measure_entries.size

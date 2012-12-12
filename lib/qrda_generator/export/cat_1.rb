@@ -17,19 +17,21 @@ module QrdaGenerator
         data_criteria_oid = HQMFTemplateHelper.template_id_by_definition_and_status(data_criteria.definition, 
                                                                                     data_criteria.status || '',
                                                                                     data_criteria.negation)
-        entries = patient.entries_for_oid(data_criteria_oid)
-
-        codes = []
-        vs = ValueSet.by_oid(data_criteria.code_list_id).first
-        if vs
-          codes = vs.code_set_map
-        else
-          #puts "No codes for #{data_criteria.code_list_id}"
-        end
         filtered_entries = []
-        if data_criteria_oid == '2.16.840.1.113883.3.560.1.401'
+        case data_criteria_oid
+        when '2.16.840.1.113883.3.560.1.404'
+          filtered_entries = handle_patient_expired(patient)
+        when '2.16.840.1.113883.3.560.1.401'
           filtered_entries = handle_clinical_trial_participant(patient)
         else
+          entries = patient.entries_for_oid(data_criteria_oid)
+          codes = []
+          vs = ValueSet.by_oid(data_criteria.code_list_id).first
+          if vs
+            codes = vs.code_set_map
+          else
+            #puts "No codes for #{data_criteria.code_list_id}"
+          end
           filtered_entries = entries.find_all do |entry|
             # This special case is for when the code list is a reason
             if data_criteria.code_list_id =~ /2\.16\.840\.1\.113883\.3\.526\.3\.100[7-9]/
@@ -104,6 +106,14 @@ module QrdaGenerator
       def handle_clinical_trial_participant(patient)
         if patient.clinical_trial_participant
           [{dummy_entry: true}]
+        else
+          []
+        end
+      end
+
+      def handle_patient_expired(patient)
+        if patient.expired
+          [OpenStruct.new(start_date: patient.deathdate)]
         else
           []
         end
