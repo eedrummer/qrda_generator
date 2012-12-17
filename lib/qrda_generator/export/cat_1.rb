@@ -5,11 +5,16 @@ module QrdaGenerator
       include HealthDataStandards::Util
       include HealthDataStandards::SVS
 
+      @@vs_map = nil
       def export(patient, measures, start_date, end_date)
         self.template_format = "cat1"
         self.template_directory = File.dirname(__FILE__)
         render(:template => 'show', :locals => {:patient => patient, :measures => measures, 
                                                 :start_date => start_date, :end_date => end_date})
+      end
+
+      def value_set_map
+        @@vs_map ||= Hash[*ValueSet.all.map{ |p| [p.oid, p] }.flatten]
       end
 
       # Find all of the entries on a patient that match the given data criteria
@@ -26,7 +31,7 @@ module QrdaGenerator
         else
           entries = patient.entries_for_oid(data_criteria_oid)
           codes = []
-          vs = ValueSet.by_oid(data_criteria.code_list_id).first
+          vs = value_set_map[data_criteria.code_list_id]
           if vs
             codes = vs.code_set_map
           else
