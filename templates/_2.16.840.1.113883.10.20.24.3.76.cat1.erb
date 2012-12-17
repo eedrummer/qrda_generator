@@ -5,8 +5,10 @@
     <!-- Symptom, active template -->
     <templateId root="2.16.840.1.113883.10.20.24.3.76"/>  
     <id root="<%= entry.id %>"/>
-    <code code="418799008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Symptom"/>    
-    <%== code_display(entry, 'tag_name' => 'value', 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <code code="418799008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Symptom"/>
+    <text><%= entry.description %></text>
+    <statusCode code="completed"/> 
+    <%== code_display(entry, 'preferred_code_sets' => ['SNOMED-CT'], 'tag_name' => 'value', 'extra_content' => "xsi:type=\"CD\" sdtc:valueSet=\"#{value_set_oid}\"") %>
     
     <effectiveTime>
       <low <%= value_or_null_flavor(entry.start_time) %>/>
