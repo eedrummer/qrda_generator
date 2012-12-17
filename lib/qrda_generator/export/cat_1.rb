@@ -79,6 +79,7 @@ module QrdaGenerator
               
             end
           else
+            QrdaGenerator.logger.debug("Rendering #{EntryTemplateResolver.partial_for(dc_oid)}")
             render(:partial => EntryTemplateResolver.partial_for(dc_oid), :locals => {:entry => entry,
                                                                                       :value_set_oid => vs_oid})
           end

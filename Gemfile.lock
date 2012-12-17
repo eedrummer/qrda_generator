@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/pophealth/hqmf-parser.git
-  revision: 15dbc74a6782186b9ffe6062896d770700da9f00
+  revision: c227a74f1c107ed6cde7ba27a73b3d86ed331aef
   branch: develop
   specs:
     hqmf-parser (1.0.6)
@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 4f4ac76fb05a689ddce09fb08db85dd1d32d6242
+  revision: deb3d75641e27effda6a6f545499e95f386b247d
   branch: develop
   specs:
     health-data-standards (2.1.4)
@@ -78,7 +78,7 @@ GEM
     pry-nav (0.2.2)
       pry (~> 0.9.10)
     rack (1.4.1)
-    rake (10.0.2)
+    rake (10.0.3)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     roo (1.10.1)
