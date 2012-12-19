@@ -6,7 +6,7 @@
     <!-- Physical Exam, Finding template -->
     <templateId root="2.16.840.1.113883.10.20.24.3.57"/>
     <id root="<%= entry.id %>"/>
-    <code code="404684003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="finding"/>
+    <%== code_display(entry, 'preferred_code_sets' => ['LOINC', 'SNOMED-CT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>    
 
     <statusCode code="completed"/>
 
