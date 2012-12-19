@@ -5,7 +5,7 @@
     <!-- Encounter performed template -->
     <templateId root="2.16.840.1.113883.10.20.24.3.23"/>
     <id root="<%= entry.id %>"/>
-    <%== code_display(entry, :extra_content => "sdtc:valueSet=\"#{value_set_oid}\"") %>
+    <%== code_display(entry, 'preferred_code_sets' => ['SNOMED-CT', 'ICD-9-CM', 'ICD-10-CM', 'CPT'], 'extra_content' => "sdtc:valueSet=\"#{value_set_oid}\"") %>
     <text><%= entry.description %></text>
     <statusCode code="completed"/>
     <effectiveTime>
