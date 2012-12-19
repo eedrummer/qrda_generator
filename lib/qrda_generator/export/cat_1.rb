@@ -80,8 +80,10 @@ module QrdaGenerator
               # Patient Characteristic: ECOG Performance Status-Poor
               render(:partial => '2.16.840.1.113883.10.20.24.3.103', :locals => {:entry => entry,
                                                                                  :value_set_oid => vs_oid})
-            else
-              
+            elsif vs_oid == "2.16.840.1.113883.3.117.1.7.1.402" || vs_oid == "2.16.840.1.113883.3.117.1.7.1.403" 
+              # Patient Charasteristic Gestational Age
+              render(:partial => '2.16.840.1.113883.10.20.24.3.101', :locals => {:entry => entry,
+                                                                                 :value_set_oid => vs_oid})
             end
           else
             render(:partial => EntryTemplateResolver.partial_for(dc_oid), :locals => {:entry => entry,
