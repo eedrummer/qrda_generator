@@ -13,6 +13,10 @@
       <low <%= value_or_null_flavor(entry.start_time) %>/>
     </effectiveTime>
     
+    <% if entry.respond_to?(:anatomical_structure) && entry.anatomical_structure.present? -%>
+    <targetSiteCode code="<%= entry.anatomical_structure['code'] %>" 
+                    codeSystem="<%= HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(entry.anatomical_structure['codeSystem']) %>"/>
+    <% end -%>
     <participant typeCode="DEV">
       <participantRole classCode="MANU">
         <playingDevice classCode="DEV">
