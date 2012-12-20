@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.email = "talk@projectpophealth.org"
   s.homepage = "https://github.com/projectcypress/qrda_generator"
   s.authors = ["Andy Gregorowicz"]
-  s.version = '1.0.0'
+  s.version = '1.0.1'
   
   s.add_dependency 'health-data-standards', '~> 2.2.0'
   s.add_dependency 'hqmf-parser', '~> 1.1.0'
@@ -17,5 +17,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'log4r', '~> 1.1.10'
 
   s.files = Dir.glob('lib/**/*.rb') + Dir.glob('templates/*.erb') +
-            ["Gemfile", "Rakefile"]
+            Dir.glob('lib/**/*.json') + ["Gemfile", "Rakefile"]
 end
